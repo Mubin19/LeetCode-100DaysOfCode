@@ -1,0 +1,52 @@
+You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+
+We repeatedly make duplicate removals on s until we no longer can.
+
+Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
+
+
+Example 1:
+
+Input: s = "abbaca"
+Output: "ca"
+Explanation: 
+For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
+Example 2:
+
+Input: s = "azxxzy"
+Output: "ay"
+
+
+Solution - 
+
+class Solution {
+    public String removeDuplicates(String s) {
+             // Create an empty stack.
+        Stack <Character> stack = new Stack<>();
+
+        // Iterare over the string
+        for (char c: s.toCharArray()) {
+            // If stack has at least one character and
+            // stack's top character is same as the string's character.
+            if (!stack.isEmpty() && stack.peek() == c) {
+                // Pop a character from the stack.
+                stack.pop();
+            } else {
+                // Otherwise, push that character onto the stack.
+                stack.push(c);
+            }
+        }
+
+        // Initialize a StringBuilder to construct the result string
+        StringBuilder result = new StringBuilder();
+        // Pop all characters from the stack and append them to the 
+        // StringBuilder
+        while (!stack.isEmpty()) {
+            result.append(stack.pop());
+        }
+
+        // Since the characters were added in reverse order, 
+        // reverse the StringBuilder to get the final result
+        return result.reverse().toString();
+    }
+}
